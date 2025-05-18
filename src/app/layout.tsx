@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Bigshot_One } from "next/font/google";
 import "./globals.css";
-import { motion } from "framer-motion";
 
 const inter = Inter({ subsets: ["latin"] });
+const bigshotOne = Bigshot_One({ 
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: "Mobile Auto Detailing Service",
-  description: "Professional mobile car detailing service. We come to you anywhere in [City].",
+  description: "Professional mobile car detailing service. We come to you anywhere in Burlington & Oakville.",
 };
 
 export default function RootLayout({
@@ -17,13 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bigshot+One&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={`${inter.className} font-bigshot`}>
+      <body className={`${inter.className} ${bigshotOne.className}`}>
         {/* Sticky Header */}
         <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm z-50 shadow-sm">
           <div className="container mx-auto px-4">

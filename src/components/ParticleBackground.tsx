@@ -3,103 +3,106 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const ParticleBackground = () => {
+export default function ParticleBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const particlesRef = useRef<THREE.Points | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
+    const container = containerRef.current;
+    
     // Scene setup
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    containerRef.current.appendChild(renderer.domElement);
+    sceneRef.current = scene;
+
+    // Camera setup
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = 5;
+    cameraRef.current = camera;
+
+    // Renderer setup
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+    rendererRef.current = renderer;
 
     // Particles setup
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 2000;
-    
+    const particlesCount = 1000;
     const posArray = new Float32Array(particlesCount * 3);
-    
-    for(let i = 0; i < particlesCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 5;
-    }
-    
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
-    // Material
+    for (let i = 0; i < particlesCount * 3; i++) {
+      posArray[i] = (Math.random() - 0.5) * 10;
+    }
+
+    particlesGeometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(posArray, 3)
+    );
+
     const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.005,
-      color: '#ffffff',
+      size: 0.02,
+      color: 0xffffff,
       transparent: true,
       opacity: 0.8,
     });
 
-    // Mesh
-    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particlesMesh);
-
-    // Position camera
-    camera.position.z = 2;
-
-    // Mouse movement effect
-    let mouseX = 0;
-    let mouseY = 0;
-
-    const handleMouseMove = (event: MouseEvent) => {
-      mouseX = event.clientX / window.innerWidth - 0.5;
-      mouseY = event.clientY / window.innerHeight - 0.5;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
+    particlesRef.current = particles;
 
     // Animation
     const animate = () => {
-      requestAnimationFrame(animate);
-
-      particlesMesh.rotation.x += 0.0005;
-      particlesMesh.rotation.y += 0.0005;
-
-      // Mouse movement effect
-      particlesMesh.rotation.x += mouseY * 0.0005;
-      particlesMesh.rotation.y += mouseX * 0.0005;
+      if (!particlesRef.current) return;
+      
+      particlesRef.current.rotation.x += 0.0005;
+      particlesRef.current.rotation.y += 0.0005;
 
       renderer.render(scene, camera);
+      requestAnimationFrame(animate);
     };
 
     animate();
 
     // Handle resize
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      if (!containerRef.current || !cameraRef.current || !rendererRef.current) return;
+      
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      cameraRef.current.aspect = width / height;
+      cameraRef.current.updateProjectionMatrix();
+      rendererRef.current.setSize(width, height);
     };
 
     window.addEventListener('resize', handleResize);
 
     // Cleanup
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
-      containerRef.current?.removeChild(renderer.domElement);
-      scene.remove(particlesMesh);
-      particlesGeometry.dispose();
-      particlesMaterial.dispose();
-      renderer.dispose();
+      if (container && rendererRef.current) {
+        container.removeChild(rendererRef.current.domElement);
+      }
+      if (particlesRef.current) {
+        scene.remove(particlesRef.current);
+        particlesRef.current.geometry.dispose();
+        (particlesRef.current.material as THREE.Material).dispose();
+      }
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+      }
     };
   }, []);
 
-  return (
-    <div 
-      ref={containerRef} 
-      className="absolute inset-0 z-0"
-      style={{ pointerEvents: 'none' }}
-    />
-  );
-};
-
-export default ParticleBackground; 
+  return <div ref={containerRef} className="w-full h-full" />;
+} 

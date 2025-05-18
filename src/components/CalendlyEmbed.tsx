@@ -4,11 +4,18 @@ import { useEffect } from 'react';
 
 declare global {
   interface Window {
-    Calendly: any;
+    Calendly: {
+      initInlineWidget: (options: {
+        url: string;
+        parentElement: HTMLElement;
+        prefill?: Record<string, string>;
+        utm?: Record<string, string>;
+      }) => void;
+    };
   }
 }
 
-const CalendlyEmbed = () => {
+export default function CalendlyEmbed() {
   useEffect(() => {
     // Load Calendly script
     const script = document.createElement('script');
@@ -22,13 +29,9 @@ const CalendlyEmbed = () => {
   }, []);
 
   return (
-    <div className="w-full" style={{ minWidth: '320px', height: '700px' }}>
-      <div
-        className="calendly-inline-widget w-full h-full"
-        data-url="https://calendly.com/amplifyace/premium-auto-detailing"
-      />
-    </div>
+    <div
+      className="calendly-inline-widget min-w-[320px] h-[700px]"
+      data-url="https://calendly.com/amplifyace/premium-auto-detailing"
+    />
   );
-};
-
-export default CalendlyEmbed; 
+} 
