@@ -81,7 +81,7 @@ export default function Home() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-bold mb-6 text-white"
+            className="text-4xl md:text-6xl font-bigshot mb-6 text-white"
           >
             Get That Showroom Shine – Right at Your Driveway
           </motion.h1>
@@ -91,7 +91,7 @@ export default function Home() {
             transition={{ delay: 0.2 }}
             className="text-xl md:text-2xl mb-8 text-white"
           >
-            Professional mobile car detailing. We come to you anywhere in [City].
+            Professional mobile car detailing. We come to you anywhere in Burlington & Oakville.
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -116,7 +116,7 @@ export default function Home() {
       {/* Services Section */}
       <section id="services" className="py-20 bg-[#E6E8E6]">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-[#191919]">Our Services</h2>
+          <h2 className="text-3xl font-bigshot text-center mb-12 text-[#191919]">Our Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <ServiceCard
               title="Exterior Wash & Wax"
@@ -149,7 +149,7 @@ export default function Home() {
       {/* Why Choose Us Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-[#191919]">Why Choose Us</h2>
+          <h2 className="text-3xl font-bigshot text-center mb-12 text-[#191919]">Why Choose Us</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               {
@@ -189,7 +189,7 @@ export default function Home() {
       {/* Gallery Section */}
       <section id="gallery" className="py-20 bg-[#E6E8E6]">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-[#191919]">Our Work</h2>
+          <h2 className="text-3xl font-bigshot text-center mb-12 text-[#191919]">Our Work</h2>
           <ImageCarousel images={galleryImages} />
         </div>
       </section>
@@ -197,7 +197,7 @@ export default function Home() {
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 bg-[#E6E8E6]">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-white">What Our Customers Say</h2>
+          <h2 className="text-3xl font-bigshot text-center mb-12 text-white">What Our Customers Say</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <TestimonialCard
               name="John Smith"
@@ -232,7 +232,7 @@ export default function Home() {
             whileInView={{ opacity: 1, scale: 1 }}
             className="max-w-2xl mx-auto"
           >
-            <h2 className="text-3xl font-bold mb-4">
+            <h2 className="text-3xl font-bigshot mb-4">
               This Week Only – Complimentary Shine Boost with First Booking
             </h2>
             <p className="text-xl mb-8">
@@ -249,7 +249,7 @@ export default function Home() {
       <section id="booking" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12 text-[#191919]">Book Your Detail</h2>
+            <h2 className="text-3xl font-bigshot text-center mb-12 text-[#191919]">Book Your Detail</h2>
             <CalendlyEmbed />
           </div>
         </div>

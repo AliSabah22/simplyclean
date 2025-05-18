@@ -17,7 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Bigshot+One&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className={`${inter.className} font-bigshot`}>
         {/* Sticky Header */}
         <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm z-50 shadow-sm">
           <div className="container mx-auto px-4">
