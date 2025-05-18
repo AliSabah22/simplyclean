@@ -1,103 +1,259 @@
-import Image from "next/image";
+'use client';
+
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import ServiceCard from '@/components/ServiceCard';
+import TestimonialCard from '@/components/TestimonialCard';
+import ImageCarousel from '@/components/ImageCarousel';
+import CalendlyEmbed from '@/components/CalendlyEmbed';
+import {
+  SparklesIcon,
+  ShieldCheckIcon,
+  ClockIcon,
+  MapPinIcon,
+} from '@heroicons/react/24/outline';
+import ParticleBackground from '@/components/ParticleBackground';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const galleryImages = [
+    {
+      before: '/images/IMG_9367.jpg',
+      after: '/images/IMG_9368.PNG',
+      title: 'Complete Exterior Detail'
+    },
+    {
+      before: '/images/IMG_9368.PNG',
+      after: '/images/IMG_9369.jpg',
+      title: 'Interior Deep Clean'
+    },
+    {
+      before: '/images/IMG_9369.jpg',
+      after: '/images/IMG_9367.jpg',
+      title: 'Headlight Restoration'
+    },
+    {
+      before: '/images/before4.jpg',
+      after: '/images/after4.jpg',
+      title: 'Engine Bay Detail'
+    },
+    {
+      before: '/images/before5.jpg',
+      after: '/images/after5.jpg',
+      title: 'Paint Correction'
+    },
+    {
+      before: '/images/before6.jpg',
+      after: '/images/after6.jpg',
+      title: 'Full Detail Package'
+    }
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const scrollToBooking = () => {
+    const bookingSection = document.getElementById('booking');
+    if (bookingSection) {
+      bookingSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <main className="min-h-screen">
+      {/* Navigation Bar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex justify-between items-center">
+            <div className="text-[#191919] font-bold text-xl">Simply Driven</div>
+            <div className="hidden md:flex space-x-8">
+              <a href="#services" className="text-[#191919] hover:text-[#F15025]">Services</a>
+              <a href="#gallery" className="text-[#191919] hover:text-[#F15025]">Gallery</a>
+              <a href="#testimonials" className="text-[#191919] hover:text-[#F15025]">Testimonials</a>
+              <a href="#booking" className="text-[#191919] hover:text-[#F15025]">Book Now</a>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center text-white">
+        <div className="absolute inset-0 z-0 bg-[#191919]">
+          <ParticleBackground />
+        </div>
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-6xl font-bold mb-6 text-white"
+          >
+            Get That Showroom Shine – Right at Your Driveway
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl md:text-2xl mb-8 text-white"
+          >
+            Professional mobile car detailing. We come to you anywhere in [City].
+          </motion.p>
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            onClick={scrollToBooking}
+            className="bg-[#F15025] hover:bg-[#F15025]/90 text-white font-bold py-3 px-8 rounded-full text-lg transition-colors"
+          >
+            Book My Detail Now
+          </motion.button>
+          <div className="mt-8 flex justify-center space-x-8 text-white">
+            <div className="flex items-center">
+              <span className="text-[#F15025]">★</span>
+              <span className="ml-1">Google 4.9</span>
+            </div>
+            <div>500+ cars cleaned</div>
+            <div>Eco-friendly</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="py-20 bg-[#E6E8E6]">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#191919]">Our Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <ServiceCard
+              title="Exterior Wash & Wax"
+              description="Complete exterior cleaning with premium wax protection"
+              icon={<SparklesIcon className="w-8 h-8 text-white" />}
+              features={["Hand wash", "Clay bar treatment", "Premium wax"]}
+            />
+            <ServiceCard
+              title="Interior Deep Clean"
+              description="Thorough interior cleaning and sanitization"
+              icon={<ShieldCheckIcon className="w-8 h-8 text-white" />}
+              features={["Vacuum", "Steam cleaning", "Leather treatment"]}
+            />
+            <ServiceCard
+              title="Headlight Restoration"
+              description="Restore cloudy headlights to like-new condition"
+              icon={<SparklesIcon className="w-8 h-8 text-white" />}
+              features={["Buffing", "UV protection", "Clear coat"]}
+            />
+            <ServiceCard
+              title="Engine Bay Detail"
+              description="Clean and protect your engine compartment"
+              icon={<ShieldCheckIcon className="w-8 h-8 text-white" />}
+              features={["Degreasing", "Protection", "Inspection"]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#191919]">Why Choose Us</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {[
+              {
+                icon: <MapPinIcon className="w-6 h-6" />,
+                title: "We Come to You",
+                description: "Save time and hassle with our mobile service"
+              },
+              {
+                icon: <ClockIcon className="w-6 h-6" />,
+                title: "Fast Service",
+                description: "60-90 minute professional detailing"
+              },
+              {
+                icon: <ShieldCheckIcon className="w-6 h-6" />,
+                title: "100% Satisfaction",
+                description: "Guaranteed results or we'll make it right"
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="flex items-start space-x-4"
+              >
+                <div className="text-[#F15025]">{item.icon}</div>
+                <div>
+                  <h3 className="font-bold mb-2 text-[#191919]">{item.title}</h3>
+                  <p className="text-[#191919]">{item.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section id="gallery" className="py-20 bg-[#E6E8E6]">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#191919]">Our Work</h2>
+          <ImageCarousel images={galleryImages} />
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-20 bg-[#E6E8E6]">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-white">What Our Customers Say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <TestimonialCard
+              name="John Smith"
+              role="Tesla Owner"
+              image="/testimonial1.jpg"
+              content="Best mobile detailing service I've ever used. They transformed my car!"
+              rating={5}
+            />
+            <TestimonialCard
+              name="Sarah Johnson"
+              role="BMW Owner"
+              image="/testimonial2.jpg"
+              content="Professional, thorough, and convenient. Will definitely use again!"
+              rating={5}
+            />
+            <TestimonialCard
+              name="Mike Brown"
+              role="Mercedes Owner"
+              image="/testimonial3.jpg"
+              content="Amazing attention to detail. My car has never looked better!"
+              rating={5}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Special Offer Section */}
+      <section className="py-20 bg-[#F15025] text-white">
+        <div className="container mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            className="max-w-2xl mx-auto"
+          >
+            <h2 className="text-3xl font-bold mb-4">
+              This Week Only – Complimentary Shine Boost with First Booking
+            </h2>
+            <p className="text-xl mb-8">
+              ✨ Book now and get a free gloss-enhancing wax finish — on us!
+            </p>
+            <button className="bg-white text-[#F15025] font-bold py-3 px-8 rounded-full text-lg hover:bg-[#E6E8E6] transition-colors">
+              Claim Free Upgrade
+            </button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Booking Section */}
+      <section id="booking" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12 text-[#191919]">Book Your Detail</h2>
+            <CalendlyEmbed />
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
